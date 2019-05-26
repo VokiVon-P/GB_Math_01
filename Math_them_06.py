@@ -100,3 +100,76 @@ X = np.linalg.solve(U, Y)
 print("X = ", X)
 
 
+#%% [markdown]
+# #### 5. Найдите нормальное псевдорешение недоопределенной системы:
+#
+# x + 2y – z = 1
+#
+# 8x – 5y + 2z = 12
+#
+# Для этого определите функцию Q(x,y,z), равную норме решения, и найдите ее минимум. 
+#%%
+A = np.array([ [1, 2, -1], [8, -5, 2] ])
+B = np.array([1, 12])
+
+def Q(x, y, z):
+    return (x**2 + y**2 + z**2)
+
+x = np.linspace(-1, 4, 301)
+Y = 10*x - 14
+Z = x + 2*Y - 1
+
+#%%
+# минимум по X
+plt.plot(x, Q(x, Y, Z))
+plt.xlabel('x')
+plt.ylim(0,10) 
+plt.xlim(1.2,1.5)
+plt.grid(True)
+plt.show()
+print("Минимум по X находиться между 1.35 и 1.4")
+
+#%%
+# минимум по Y
+plt.plot(Y, Q(x, Y, Z))
+plt.xlabel('y')
+plt.ylim(0,10) 
+plt.xlim(-1, 1)
+plt.grid(True)
+plt.show()
+print("Минимум по Y находиться между 0 и -0.25")
+
+#%%
+# минимум по Z
+plt.plot(Z, Q(x, Y, Z))
+plt.xlabel('z')
+plt.ylim(0,10) 
+plt.xlim(-2, 2)
+plt.grid(True)
+plt.show()
+print("Минимум по Z находиться в районе 0 ")
+
+#%%
+res = np.linalg.lstsq(A, B)
+print("Алгебраическое решение: X = ", res[0][0], " Y = ", res[0][1], " Z = ", res[0][2])
+
+#%%
+""" from pylab import *
+from mpl_toolkits.mplot3d import Axes3D
+fig = figure()
+ax = Axes3D(fig)
+ax.set_xlim(0, 2)
+ax.set_ylim(-1, 1)
+ax.set_zlim(0,12)
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+
+x = np.linspace(-1, 4, 301)
+Y = 10*x - 14
+Z = 21*x - 28
+# Z = Q(x, 10*x -14, 21*x - 28)
+# ax.plot_surface(X, Y, Z)
+ax.plot(x, Y, Q(x, Y, Z))
+ax.zaxis.axis_name = "hello"
+show() """
