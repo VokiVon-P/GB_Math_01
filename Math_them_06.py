@@ -173,3 +173,46 @@ Z = 21*x - 28
 ax.plot(x, Y, Q(x, Y, Z))
 ax.zaxis.axis_name = "hello"
 show() """
+
+#%% [markdown]
+# #### 6. Найдите одно из псевдорешений вырожденной системы:
+
+#%%
+A = np.array([ [1, 2, 3], [4, 5, 6], [7, 8, 9] ])
+B = np.array([2, 5, 11])
+Q, R = np.linalg.qr(A)
+
+print(A)
+print(Q)
+print(R)
+print("\nПроверка полученных матриц:")
+print(np.dot(Q, R))
+print(np.dot(Q.T, Q))
+
+#%%
+print("\nСоздадим R1 и B1:")
+R1 = R[:2, :2]
+print(R1)
+B1 = np.dot(Q.T, B)[:2]
+print(B1)
+
+print("\nПолучим решение и склеим с X2 = 0:")
+X1 = np.linalg.solve(R1, B1)
+print(X1)
+X3 = np.append(X1, 0)
+print("\nОдно из псевдорешений:")
+print (X3)
+print("\nс нормой = ", np.linalg.norm(X3))
+np.linalg.norm(X3),  np.linalg.norm(np.dot(A, X3) - B)      
+
+#%% [markdown]
+# Ищем решение с минимальной нормой
+#%%
+res = np.linalg.lstsq(A, B, rcond=None)
+print(res)
+X = res[0]
+print("\nАлгебраическое решение: ", X)
+
+
+print("\nс нормой = ", np.linalg.norm(X))
+np.linalg.norm(X),  np.linalg.norm(np.dot(A, X) - B)  
