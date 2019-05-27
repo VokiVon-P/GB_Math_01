@@ -47,7 +47,7 @@ else:
 #%%
 A = np.array([[1, 2, -1], [3, -4, 0], [8, -5, 2], [2, -5, 0], [11, 4, -7]])
 B = np.array([4, 7, 12, 7, 15])
-res = np.linalg.lstsq(A, B)
+res = np.linalg.lstsq(A, B, rcond=None)
 print(res)
 print("Псевдорешение:\n",res[0])
 print("Сумма квадратов отклонений(невязок): = ", res[1][0])
@@ -150,29 +150,29 @@ plt.show()
 print("Минимум по Z находиться в районе 0 ")
 
 #%%
-res = np.linalg.lstsq(A, B)
-print("Алгебраическое решение: X = ", res[0][0], " Y = ", res[0][1], " Z = ", res[0][2])
+res = np.linalg.lstsq(A, B, rcond=None)
+print("Алгебраическое решение: ", res[0])
 
 #%%
-""" from pylab import *
-from mpl_toolkits.mplot3d import Axes3D
-fig = figure()
-ax = Axes3D(fig)
-ax.set_xlim(0, 2)
-ax.set_ylim(-1, 1)
-ax.set_zlim(0,12)
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
-ax.set_zlabel('Z')
+# from pylab import *
+# from mpl_toolkits.mplot3d import Axes3D
+# fig = figure()
+# ax = Axes3D(fig)
+# ax.set_xlim(0, 2)
+# ax.set_ylim(-1, 1)
+# ax.set_zlim(0,12)
+# ax.set_xlabel('X')
+# ax.set_ylabel('Y')
+# ax.set_zlabel('Z')
 
-x = np.linspace(-1, 4, 301)
-Y = 10*x - 14
-Z = 21*x - 28
-# Z = Q(x, 10*x -14, 21*x - 28)
-# ax.plot_surface(X, Y, Z)
-ax.plot(x, Y, Q(x, Y, Z))
-ax.zaxis.axis_name = "hello"
-show() """
+# x = np.linspace(-1, 4, 301)
+# Y = 10*x - 14
+# Z = 21*x - 28
+# # Z = Q(x, 10*x -14, 21*x - 28)
+# # ax.plot_surface(X, Y, Z)
+# ax.plot(x, Y, Q(x, Y, Z))
+# ax.zaxis.axis_name = "hello"
+# show() 
 
 #%% [markdown]
 # #### 6. Найдите одно из псевдорешений вырожденной системы:
